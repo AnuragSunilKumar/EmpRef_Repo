@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="employee/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>this is home page</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="card">
+				<div class="card-body my-5">
+					
+					<h1
+						class="text-center mt-3 text-secondary font-italic font-weight-light">
+						Start Reffering...</h1>
+
+					<a th:href="@{/user/add-refferal}"
+						class="btn btn-primary mt-4 btn-block text-uppercase">Add
+						New Refferal</a>
+						
+						<hr />
+						<div class="card">
+	
+	<div class="card-body">
+	
+	<h1 class="text-center">Open Positions</h1>
+	
+	<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#ID</th>
+      <th scope="col">Position</th>
+      <th scope="col">Description</th>
+      <th scope="col">Experience</th>
+      <th scope="col">Contact</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+  
+  
+    <tr th:each="c: ${jobs}">
+      <th scope="row" th:text="${'DEV21'+c.id}">1</th>
+      <td th:text="${c.jobName}"></td>
+      <td th:text="${c.jobdescription}">Otto</td>
+      <td th:text="${c.jobExp}">@mdo</td>
+      <td th:text="${c.Contact}">@mdo</td>
+      <td>
+      
+      
+    
+  </tbody>
+</table>
+	
+	</div>
+	
+	</div>
+						
+
+				</div>
+			</div>
+		</div>
+
+		<script>
+        $(document).ready(() => {
+          $(".item").removeClass("active");
+          $("#home-link").addClass("active");
+        });
+      </script>
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	</section>
+</body>
+</html>

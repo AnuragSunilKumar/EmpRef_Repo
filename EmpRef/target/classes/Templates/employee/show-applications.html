@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="employee/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>this is home</title>
+</head>
+<body>
+	<section >
+	<div class="card">
+	
+	<div class="card-body">
+	
+	<h1 class="text-center">Your Refferals</h1>
+	
+	<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Number</th>
+      <th scope="col">Email</th>
+      <th scope="col">Applied For</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+  
+    <tr th:each="c: ${applications}">
+      <th scope="row" th:text="${'DEV21'+c.id}">1</th>
+      <td th:text="${c.app_name}"></td>
+      <td th:text="${c.app_number}">Otto</td>
+      <td th:text="${c.app_email}">@mdo</td>
+      <td th:text="${c.app_for}">@mdo</td>
+      <td>
+      
+     <div >
+     
+      <button class="btn bg-primary btn-sm text-white">Update</button>
+      <button class="btn bg-danger btn-sm text-white">Delete</button>
+      </div>
+      </td>
+    </tr>
+     
+    
+  </tbody>
+</table>
+	
+	</div>
+	
+	</div>
+	
+	</section>
+</body>
+</html>
