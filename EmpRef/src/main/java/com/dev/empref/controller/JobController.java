@@ -38,15 +38,15 @@ public class JobController {
 		 
     }	
 
-    // get single Jobs handler
-    @GetMapping("/jobs/{id}")
-    public ResponseEntity<Jobs> getjob(@PathVariable("id") int id) {
-        Jobs Jobs = jobService.getJobById(id);
-        if (Jobs == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.of(Optional.of(Jobs));
-    }
+	/*
+	 * // get single Jobs handler
+	 * 
+	 * @GetMapping("/jobs/{id}") public ResponseEntity<Jobs>
+	 * getjob(@PathVariable("id") int id) { Jobs Jobs = jobService.getJobById(id);
+	 * if (Jobs == null) { return
+	 * ResponseEntity.status(HttpStatus.NOT_FOUND).build(); } return
+	 * ResponseEntity.of(Optional.of(Jobs)); }
+	 */
 
     // new Jobs handler
     @PostMapping("/jobscreate")

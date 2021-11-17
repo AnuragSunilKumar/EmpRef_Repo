@@ -12,4 +12,7 @@ import com.dev.empref.entities.Jobs;
 public interface JobRepository extends JpaRepository <Jobs,Integer>{
     public Jobs findById(int id);
     
+
+    
+    
 }

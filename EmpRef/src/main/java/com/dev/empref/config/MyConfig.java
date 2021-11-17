@@ -1,5 +1,6 @@
 package com.dev.empref.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,6 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class MyConfig extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	private CustomLoginSuccessHandler customLoginSuccessHandler;
 
 	@Bean
 	public UserDetailsService getUserDetailService() {
@@ -47,7 +51,7 @@ public class MyConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/**").permitAll().and().formLogin()
 				.loginPage("/signin") 
 				.loginProcessingUrl("/dologin") 
-				 .defaultSuccessUrl("/user/index") 			
+				 .successHandler(customLoginSuccessHandler)		
 				.and().csrf().disable();
 	}
 

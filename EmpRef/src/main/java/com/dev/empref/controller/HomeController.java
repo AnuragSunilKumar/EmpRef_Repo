@@ -69,6 +69,9 @@ public class HomeController {
     	model.addAttribute("user", new User());
         return "signup";
     }
+    
+    
+    
     @RequestMapping(value = "/do_register", method = RequestMethod.POST)
 	public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result1,
 			@RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model model,
@@ -110,13 +113,6 @@ public class HomeController {
 
 	}
      
-    
-    @RequestMapping("/admin")
-    public String admin(Model model)
-    {
-    	model.addAttribute("title","Register");
-    	//model.addAttribute("user", new User());
-        return "admin/admin_dashboard";
-    }
+   
 	
 }

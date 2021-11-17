@@ -20,18 +20,12 @@ public class JobServices {
         return list;
     }
 
-    // get jobs by ID
-    public Jobs getJobById(int id) {
-        Jobs jobs = null;
-        try {
-
-           this.jobRepository.findById(id);
-        } catch (Exception e) 
-        {
-            e.printStackTrace();
-        }
-        return jobs;
-    }
+	/*
+	 * // get jobs by ID public Jobs getJobById(int id) { Jobs jobs = null; try {
+	 * 
+	 * this.jobRepository.findById(id); } catch (Exception e) { e.printStackTrace();
+	 * } return jobs; }
+	 */
 
     // add jobs
     public Jobs addjob(Jobs j) {

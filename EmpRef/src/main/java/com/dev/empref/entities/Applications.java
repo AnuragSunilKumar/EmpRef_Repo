@@ -97,6 +97,13 @@ public class Applications {
         this.app_email = app_email;
     }
 
+
+	@Override
+	public String toString() {
+		return "Applications [id=" + id + ", app_name=" + app_name + ", app_number=" + app_number + ", app_for="
+				+ app_for + ", app_email=" + app_email + ", resume=" + resume + ", user=" + user + "]";
+	}
+
     
 
     
