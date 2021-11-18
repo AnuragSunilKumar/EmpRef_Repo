@@ -41,11 +41,12 @@
 										</div>
 
 									</div>
+									
+								
 
-									<input th:value="${applications.app_name}" required type="text"
+									 <input th:value="${applications.app_name}" required type="text"
 										id="app_name" name="app_name" placeholder="Enter Name here"
 										class="form-control" />
-
 								</div>
 
 
@@ -108,6 +109,21 @@
 									</select>
 
 								</div>
+								
+								<!-- Contact Image  -->
+						
+						<div class="container text-left">
+							<!-- <img style="width: 250px;height: 250px;" class="img-fluid my_profile_picture" src="" th:src="@{'/img/'+${applications.resume}}" alt="" /> -->
+							
+							<a th:href="@{'/img/'+${applications.resume}}"><span th:text="${applications.resume}"></span></a>
+						</div>
+						
+						<p class="text-secondary">Choose a new Resume</p>
+						
+						<div class="custom-file">
+							<input type="file" name="profileResume" />
+						
+						</div>
 
 
 
@@ -115,7 +131,7 @@
 
 								<div class="container text-center">
 
-									<button class="btn btn-outline-primary">Save Contact</button>
+									<button class="btn btn-outline-primary">Update Refferal</button>
 
 								</div>
 

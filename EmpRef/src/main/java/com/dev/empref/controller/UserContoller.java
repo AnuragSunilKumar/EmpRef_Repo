@@ -51,11 +51,6 @@ public class UserContoller {
 
 	@Autowired
 	private ApplicationRepository applicationRepository;
-	
-	
-	
-     
-
 
 	// method for adding common data to response
 	@ModelAttribute
@@ -84,20 +79,20 @@ public class UserContoller {
 	// open add form handler
 	@GetMapping("/add-refferal")
 	public String openAddRefferalForm(Model model) {
-	
+
 		List<Jobs> jobsList = this.jobRepository.findAll();
-	
-		model.addAttribute("jobsList",jobsList);
+
+		model.addAttribute("jobsList", jobsList);
 		model.addAttribute("title", "Add Refferal");
 		model.addAttribute("applications", new Applications());
 
 		return "employee/add_application_form";
 	}
 
-	// processing add contact form
+	// processing add refferal form
 	@PostMapping("/process-application")
 	public String processApplications(@ModelAttribute Applications applications,
-			/* @RequestParam("Resume") */ MultipartFile file, Principal principal, HttpSession session) {
+			@RequestParam("profileResume") MultipartFile file, Principal principal, HttpSession session) {
 
 		try {
 
@@ -106,26 +101,25 @@ public class UserContoller {
 
 			// processing and uploading file..
 
-			/*
-			 * if (file.isEmpty()) { // if the file is empty then try our message
-			 * System.out.println("File is empty"); applications.setResume("contact.png");
-			 * 
-			 * }
-			 */ /*
-				 * else { // file the file to folder and update the name to contact
-				 * applications.setResume(file.getOriginalFilename());
-				 * 
-				 * File saveFile = new ClassPathResource("static/img").getFile();
-				 * 
-				 * Path path = Paths.get(saveFile.getAbsolutePath() + File.separator +
-				 * file.getOriginalFilename());
-				 * 
-				 * Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-				 * 
-				 * System.out.println("Image is uploaded");
-				 * 
-				 * }
-				 */
+			if (file.isEmpty()) { // if the file is empty then try our message
+				System.out.println("File is empty");
+				// applications.setResume("contact.png");
+
+			}
+
+			else { 
+				// file the file to folder and update the name to contact
+				applications.setResume(file.getOriginalFilename());
+
+				File saveFile = new ClassPathResource("static/img").getFile();
+
+				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
+
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+				System.out.println("Resume is uploaded");
+
+			}
 
 			user.getApplications().add(applications);
 
@@ -148,7 +142,7 @@ public class UserContoller {
 
 		}
 
-		return "employee/add_application_form";
+		return "redirect:/user/add-refferal";
 	}
 
 	// show applications handler
@@ -168,7 +162,6 @@ public class UserContoller {
 		Pageable pageable = PageRequest.of(page, 5);
 
 		Page<Applications> applications = this.applicationRepository.findApplicationsByUser(user.getId(), pageable);
-		
 
 		m.addAttribute("applications", applications);
 		m.addAttribute("currentPage", page);
@@ -176,15 +169,13 @@ public class UserContoller {
 
 		return "employee/show-applications";
 	}
-	
+
 	@GetMapping("/delete/{id}")
 	@Transactional
-	public String deleteContact(@PathVariable("id") Integer id, Model model, HttpSession session,
-			Principal principal) {
+	public String deleteContact(@PathVariable("id") Integer id, Model model, HttpSession session, Principal principal) {
 		System.out.println("CID " + id);
 
 		Applications applications = this.applicationRepository.findById(id).get();
-		
 
 		// delete old photo
 
@@ -199,79 +190,73 @@ public class UserContoller {
 
 		return "redirect:/user/show-applications/0";
 	}
-	
-	
+
 	// open update form handler
-		@PostMapping("/update-refferal/{id}")
-		public String updateForm(@PathVariable("id") Integer id, Model m) {
+	@PostMapping("/update-refferal/{id}")
+	public String updateForm(@PathVariable("id") Integer id, Model m) {
 
-			m.addAttribute("title", "Update Refferal");
+		m.addAttribute("title", "Update Refferal");
 
-			Applications applications = this.applicationRepository.findById(id).get();
+		Applications applications = this.applicationRepository.findById(id).get();
 
-			m.addAttribute("applications", applications);
+		m.addAttribute("applications", applications);
+
+		List<Jobs> jobsList = this.jobRepository.findAll();
+
+		m.addAttribute("jobsList", jobsList);
+
+		return "employee/update_form";
+	}
+
+	// update Refferal handler
+	@RequestMapping(value = "/process-update", method = RequestMethod.POST)
+	public String updateHandler(@ModelAttribute Applications applications,
+			 @RequestParam("profileResume") MultipartFile file, Model m, HttpSession session, Principal principal) {
+
+		try {
+
+			// old contact details
+			Applications oldapplicationDetail = this.applicationRepository.findById(applications.getId()).get();
+
 			
-			List<Jobs> jobsList = this.jobRepository.findAll();
+			  // image.. 
+			if (!file.isEmpty()) { // file work.. // rewrite
+			  
+			  // delete old photo
+			  
+			  File deleteFile = new ClassPathResource("static/img").getFile(); 
+			  File file1 =
+			  new File(deleteFile, oldapplicationDetail.getResume()); file1.delete();
+			 
+			 // update new photo
+			 
+			 File saveFile = new ClassPathResource("static/img").getFile();
+			  
+			  Path path = Paths.get(saveFile.getAbsolutePath() + File.separator +
+			  file.getOriginalFilename());
+			  
+			  Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			  
+			  applications.setResume(file.getOriginalFilename());
+			  
+			  } else { applications.setResume(oldapplicationDetail.getResume()); }
 			
-			m.addAttribute("jobsList",jobsList);
 
-			return "employee/update_form";
+			User user = this.userRepository.getUserByUserName(principal.getName());
+
+			applications.setUser(user);
+
+			this.applicationRepository.save(applications);
+
+			session.setAttribute("message", new Message("Your Refferal is updated...", "success"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		
 
-		// update contact handler
-		@RequestMapping(value = "/process-update", method = RequestMethod.POST)
-		public String updateHandler(@ModelAttribute Applications applications,
-				/* @RequestParam("profileImage") */ MultipartFile file,
-				Model m, HttpSession session, Principal principal) {
-			
-			
-			System.out.println(" NAME " + applications.getApp_name());
-			System.out.println(" ID " + applications.getId());
-
-			try {
-
-				// old contact details
-				Applications oldapplicationDetail = this.applicationRepository.findById(applications.getId()).get();
-
-				/*
-				 * // image.. if (!file.isEmpty()) { // file work.. // rewrite
-				 * 
-				 * // delete old photo
-				 * 
-				 * File deleteFile = new ClassPathResource("static/img").getFile(); File file1 =
-				 * new File(deleteFile, oldcontactDetail.getImage()); file1.delete();
-				 * 
-				 * // update new photo
-				 * 
-				 * File saveFile = new ClassPathResource("static/img").getFile();
-				 * 
-				 * Path path = Paths.get(saveFile.getAbsolutePath() + File.separator +
-				 * file.getOriginalFilename());
-				 * 
-				 * Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-				 * 
-				 * contact.setImage(file.getOriginalFilename());
-				 * 
-				 * } else { contact.setImage(oldcontactDetail.getImage()); }
-				 */
-
-				User user = this.userRepository.getUserByUserName(principal.getName());
-
-				applications.setUser(user);
-
-				this.applicationRepository.save(applications);
-
-				session.setAttribute("message", new Message("Your Refferal is updated...", "success"));
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			System.out.println(" NAME " + applications.getApp_name());
-			System.out.println(" ID " + applications.getId());
-			return "redirect:/user/show-applications/0";
-		}
+		System.out.println(" NAME " + applications.getApp_name());
+		System.out.println(" ID " + applications.getId());
+		return "redirect:/user/show-applications/0";
+	}
 
 }
