@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="employee/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8" />
+    <title>Settings</title>
+  </head>
+  <body>
+    <section>
+     <div class="container">
+     
+     <div class="row">
+     
+     <div class="col-md-12">
+     
+     <div class="card">
+     
+     <div class="card-body">
+     
+     <h3 class="mb-3">Change password</h3>
+     
+     <form  th:action="@{/user/change-password}" method="post">
+     
+     		
+   		<!--old password field -->
+   			<div class="form-group">
+   				
+   				<input name="oldPassword" type="password" class="form-control" placeholder="Enter old password" />
+   			
+   			</div>
+   			
+   			
+   			<!-- new password field -->
+   			
+   			<div class="form-group">
+   				
+   				<input name="newPassword" type="password" class="form-control" placeholder="Enter new password" />
+   			
+   			</div>
+   			
+   			<div class="conainer text-center">
+   			
+   			<button type="submit" class="btn btn-success">Change</button>
+   			<button type="reset" class="btn btn-warning">Reset</button>
+   			
+   			</div>
+     
+   			
+     
+     </form>
+     
+     </div>
+     
+     </div>
+     
+     
+     </div>
+     
+     </div>
+     
+     </div>
+     
+     
+     <table class="table">
+					<thead>
+						<tr>
+							<th scope="col">#ID</th>
+							<th scope="col">Name</th>
+							<th scope="col">Email</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+
+
+						<tr th:each="c: ${user}">
+							<th scope="row" th:text="${'DEV21'+c.id}">1</th>
+							<td><a href="#" th:href="@{'/user/'+${c.id}+'/refferal'}">
+
+									<span th:text="${c.name}"></span>
+
+							</a></td>
+							
+							
+						
+							<!-- <td th:text="${c.user.name}">@mdo</td> -->
+							
+							
+						</tr>
+
+
+					</tbody>
+				</table>
+
+      <script>
+        $(document).ready(() => {
+          $(".item").removeClass("active");
+          $("#settings-link").addClass("active");
+        });
+      </script>
+    </section>
+  </body>
+</html>

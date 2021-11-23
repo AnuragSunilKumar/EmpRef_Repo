@@ -1,0 +1,5 @@
+package com.dev.empref.controller;
+
+public class AdminController {
+
+}

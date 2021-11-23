@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="employee/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Settings</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-md-12">
+
+					<div class="card">
+
+						<div class="card-body">
+
+							<h3 class="mb-3">Change password</h3>
+
+							<form th:action="@{/user/change-password}" method="post">
+
+
+								<!--old password field -->
+								<div class="form-group">
+
+									<input name="oldPassword" type="password" class="form-control"
+										placeholder="Enter old password" />
+
+								</div>
+
+
+								<!-- new password field -->
+
+								<div class="form-group">
+
+									<input name="newPassword" type="password" class="form-control"
+										placeholder="Enter new password" />
+
+								</div>
+
+								<div class="conainer text-center">
+
+									<button type="submit" class="btn btn-success">Change</button>
+									<button type="reset" class="btn btn-warning">Reset</button>
+
+								</div>
+
+
+
+							</form>
+
+						</div>
+
+					</div>
+
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<br>
+
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-md-12">
+
+					<div class="card">
+
+						<div class="card-body">
+
+							<h3 class="mb-3">Change User Details</h3>
+
+							<form action="#" th:object="${user}"
+								enctype="multipart/form-data" method="POST"
+								th:action="@{/user/process-update}" class="mt-2">
+
+								<input type="hidden" th:value="${user.id}" name="id" />
+
+
+								<!-- First Name  -->
+
+								<div class="input-group">
+
+									<div class="input-group-prepend">
+
+										<div class="input-group-text ">
+
+											<i class="fa fa-plus"></i>
+
+										</div>
+
+									</div>
+
+
+
+									<input th:value="${user.name}" required type="text" id="name"
+										name="name" placeholder="Enter Name here" class="form-control" />
+								</div>
+
+
+								<!-- Email Field  -->
+
+								<div class="input-group mt-3">
+
+									<div class="input-group-prepend">
+
+										<div class="input-group-text ">@</div>
+
+									</div>
+
+									<input th:value="${user.email}" required type="email"
+										id="email" name="email" placeholder="Enter email here"
+										class="form-control" />
+
+								</div>
+
+
+								<br>
+
+								<div class="container text-center">
+
+									<button type="submit" class="btn btn-success">Change</button>
+
+								</div>
+
+
+
+
+							</form>
+
+
+						</div>
+
+					</div>
+
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+		<script>
+        $(document).ready(() => {
+          $(".item").removeClass("active");
+          $("#settings-link").addClass("active");
+        });
+      </script>
+	</section>
+</body>
+</html>

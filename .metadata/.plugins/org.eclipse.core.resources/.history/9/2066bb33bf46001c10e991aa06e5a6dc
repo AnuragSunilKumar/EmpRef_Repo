@@ -1,0 +1,5 @@
+package com.dev.empref.config;
+
+public class CustomLoginSuccessHandler {
+
+}

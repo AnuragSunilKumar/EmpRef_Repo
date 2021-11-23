@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="employee/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>this is home page</title>
+</head>
+<body>
+	<section>
+		
+		
+		<div class="card mr-3 ml-3">
+		
+			<div class="card-body">
+			
+				<h1 class="text-center">Update Refferal</h1>
+				
+				<div class="container-fluid mt-1">
+				
+				<div class="row">
+					
+					<div class="col-md-8 offset-md-2">
+					
+						<form action="#" 
+							  th:object="${applications}"
+							  enctype="multipart/form-data"
+							  method="POST"
+							  th:action="@{/user/process-update}"
+							  class="mt-2"
+						>
+						
+						 <input type="hidden" th:value="${application.id}" name="id" />
+						
+						
+						<!-- First Name  -->
+						
+						<div class="input-group">
+						
+							<div class="input-group-prepend">
+							
+								<div class="input-group-text ">
+										
+										<i class="fa fa-plus"></i>
+									
+								</div>
+							
+							</div>
+						
+							<input th:value="${applications.app_name}" required type="text" id="app_name" name="app_name" placeholder="Enter Name here" class="form-control" />
+						
+						</div>
+						
+						
+						
+						<!-- Phone Field -->
+						<div class="input-group mt-3">
+						
+							<div class="input-group-prepend">
+							
+								<div class="input-group-text ">
+										
+										<i class="fa fa-phone"></i>
+									
+								</div>
+							
+							</div>
+						
+							<input th:value="${applications.app_number}" required min="10"  type="number" id="app_number" name="app_number" placeholder="Enter Phone Number  here" class="form-control" />
+						
+						</div>
+						
+						
+						<!-- Email Field  -->
+						
+						<div class="input-group mt-3">
+						
+							<div class="input-group-prepend">
+							
+								<div class="input-group-text ">
+										
+										@
+									
+								</div>
+							
+							</div>
+						
+							<input th:value="${applications.app_email}" required type="email" id="app_email" name="app_email" placeholder="Enter email here" class="form-control" />
+						
+						</div>
+						
+						
+						<!--  Work Field -->
+						
+						<div class="input-group mt-3">
+
+									<div class="input-group-prepend">
+
+										<div class="input-group-text ">
+
+											<i class="fa fa-briefcase"></i>
+
+										</div>
+
+									</div>
+
+									<!-- <input required type="text" id="app_for" name="app_for" placeholder="Applying for" class="form-control" /> -->
+									<select name="app_for" id="app_for">
+										<option th:each="p: ${jobsList}" th:value="${p.jobName}"
+											th:text="${p.jobName}" />
+									</select>
+
+								</div>
+						
+						<!-- Contact Description -->
+						
+						
+						
+						<div class="container text-center">
+							
+						 <button class="btn btn-outline-primary">Save Contact</button>
+						
+						</div>
+						
+						
+						
+						
+						</form>
+					
+					
+					</div>
+				
+				
+				</div>
+				
+				</div>
+			
+			
+			</div>
+		
+		</div>
+		
+		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+		
+		<script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
+		
+		
+	</section>
+</body>
+</html>

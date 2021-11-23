@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>this is home</title>
+</head>
+<body>
+	<section >
+	<div class="card">
+	
+	<div class="card-body">
+	
+	<h1 class="text-center">Open Positions</h1>
+	
+	<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Position</th>
+      <th scope="col">Description</th>
+      <th scope="col">Experience</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+  
+    <tr th:each="c: ${jobs}">
+      <th scope="row">1</th>
+      <td th:text="${c.jobName}"></td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>@mdo</td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+	
+	</div>
+	
+	</div>
+	
+	</section>
+</body>
+</html>

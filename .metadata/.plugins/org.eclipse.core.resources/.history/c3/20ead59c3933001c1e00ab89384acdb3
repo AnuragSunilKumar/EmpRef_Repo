@@ -1,0 +1,21 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>this is home</title>
+</head>
+<body>
+	<section >
+	<div class="card">
+	
+	<div class="card-body">
+	
+	<h1 class="text-center">Your Jobs</h1>
+	
+	</div>
+	
+	</div>
+	
+	</section>
+</body>
+</html>
