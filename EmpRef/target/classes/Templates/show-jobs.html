@@ -1,0 +1,56 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::section})"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8" />
+<title>this is home</title>
+</head>
+<body>
+	<section >
+	<div class="card">
+	
+	<div class="card-body">
+	
+	<h1 class="text-center">Open Positions</h1>
+	
+	<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#ID</th>
+      <th scope="col">Position</th>
+      <th scope="col">Description</th>
+      <th scope="col">Experience</th>
+      <th scope="col">Contact</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+  
+    <tr th:each="c: ${jobs}">
+      <th scope="row" th:text="${'DEV21'+c.id}">1</th>
+      <td th:text="${c.jobName}"></td>
+      <td th:text="${c.jobdescription}">Otto</td>
+      <td th:text="${c.jobExp}">@mdo</td>
+      <td th:text="${c.Contact}">@mdo</td>
+      <td>
+      
+      <div >
+      <a th:href="@{/user/add-refferal/}">
+      <button class="btn bg-primary btn-sm text-white"> Reffer</button>
+      </a>
+      </div>
+      </td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+	
+	</div>
+	
+	</div>
+	
+	</section>
+</body>
+</html>
